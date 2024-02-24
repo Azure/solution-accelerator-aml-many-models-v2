@@ -1,0 +1,38 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+
+type: command
+
+name: compute_metrics
+display_name: Compute Ground Truth Metrics
+version: 1
+
+inputs:
+  ground_truth:
+    type: uri_file
+  predictions:
+    type: uri_file
+  ground_truth_column_name:
+    type: string
+  predictions_column_name:
+    type: string
+  join_cols:
+    type: string
+
+outputs:
+  metric_results:
+    type: uri_folder
+
+code: ./
+
+environment: 
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+  conda_file: ../../../environment/remote_env_conda.yaml
+
+command: >-
+  python compute_metrics.py
+  --ground_truth ${{inputs.ground_truth}}
+  --predictions ${{inputs.predictions}}
+  --ground_truth_column_name ${{inputs.ground_truth_column_name}}
+  --predictions_column_name ${{inputs.predictions_column_name}}
+  --join_cols ${{inputs.join_cols}}
+  --metric_results ${{outputs.metric_results}}

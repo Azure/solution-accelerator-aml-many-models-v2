@@ -1,0 +1,25 @@
+name: many_models
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.6
+  - pip
+  - pip:
+    - azureml-mlflow==1.54.0
+    - mlflow==1.30.1
+    - mltable>=1.2.0
+    - azureml-dataset-runtime[pandas,fuse]
+    - azureml-telemetry
+    - pandas
+    - numpy
+    - wheel
+    - pillow
+    - azure-ai-ml
+    - azure-identity
+    - cloudpickle==1.1.1
+    - tensorflow==2.1.4
+    - ipykernel
+    - scikit-learn==0.20.4
+    - python-dotenv
+    - fsspec
+    - azureml-fsspec
