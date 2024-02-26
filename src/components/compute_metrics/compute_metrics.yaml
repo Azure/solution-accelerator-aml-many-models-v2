@@ -26,7 +26,7 @@ code: ./
 
 environment: 
   image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
-  conda_file: ../../../environment/remote_env_conda.yaml
+  conda_file: ../../../environment/conda.yaml
 
 command: >-
   python compute_metrics.py
