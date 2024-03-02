@@ -2,7 +2,6 @@ import os
 import pandas as pd
 import argparse
 import mlflow
-from sklearn.ensemble import GradientBoostingRegressor
 
 def init():
 
