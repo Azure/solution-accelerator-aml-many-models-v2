@@ -6,7 +6,7 @@ import mlflow
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 def init():
 
@@ -99,6 +99,9 @@ def run(input_data, mini_batch_context):
         input_data = input_data.assign(Week_Year=input_data.index.isocalendar().week.values)
         input_data = input_data.drop(columns=drop_cols, errors="ignore")
 
+        # sort data for later split
+        input_data = input_data.sort_index(ascending=True)
+
         # traning & evaluation
         features = input_data.columns.drop(target_col)
 
@@ -106,11 +109,11 @@ def run(input_data, mini_batch_context):
         y = input_data[target_col].values
 
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.1, random_state=12, shuffle=False
+            X, y, test_size=0.15, random_state=12, shuffle=False
         )
 
         # Fit challenger model
-        challenger_model = GradientBoostingRegressor(random_state=12)
+        challenger_model = DecisionTreeRegressor(random_state=12)
         challenger_model.fit(X_train, y_train)
 
         # Load Champion model
@@ -119,7 +122,6 @@ def run(input_data, mini_batch_context):
             champion_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/latest")
        
         except mlflow.exceptions.MlflowException as e:
-            
             print(f"Model {model_name} not found. Registering new model...")
             champion_model = None
             challenger_score = score_model(challenger_model, X_test, y_test)
