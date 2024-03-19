@@ -1,0 +1,29 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: Many Model Evaluation
+description: Pipeline to evaluate many models predictions vs ground truth
+experiment_name: many-model-evaluation
+settings:
+  default_compute: azureml:dev-cluster
+
+jobs:
+  partition_job:
+    type: command
+    component: ../src/components/compute_metrics/compute_metrics.yaml
+
+    inputs:
+      ground_truth:
+        type: uri_file
+        path: ../data/oj_sim_sales/test_subset_results.csv
+      predictions:
+        type: uri_file
+        path: azureml:oj-sim-sales-predictions@latest
+      ground_truth_column_name: "Revenue"
+      predictions_column_name: "predictions"
+      join_cols: "WeekStarting,Store,Brand"
+    
+    outputs:
+      metric_results:
+        type: uri_folder
+        mode: rw_mount
+

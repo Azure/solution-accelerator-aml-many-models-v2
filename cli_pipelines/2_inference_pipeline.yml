@@ -1,0 +1,70 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: Many Model Inference
+description: Parallel job to batch predict with many models
+experiment_name: many-model-inference-job
+
+
+settings:
+  default_compute: azureml:dev-cluster
+
+jobs:
+  partition_job:
+    type: command
+    component: ../src/components/partition_data/partition_data.yaml
+
+    inputs:
+      data_source:
+        type: uri_file
+        path: ../data/oj_sim_sales/test_subset.csv
+      partition_keys: Store,Brand
+    outputs:
+      tabular_output_data:
+        type: mltable
+        mode: rw_mount
+
+  distributed_inference:
+    type: parallel
+    compute: azureml:dev-cluster
+    inputs:
+      data_source: 
+        path: ${{parent.jobs.partition_job.outputs.tabular_output_data}}
+        type: mltable
+        mode: direct
+      drop_cols: "Advert,Store,Brand"
+      date_col: "WeekStarting"
+      tracking_uri: "azureml://eastus.api.azureml.ms/mlflow/v1.0/subscriptions/6c065ea7-65cd-4a34-8e2a-3e21ad4a8e9f/resourceGroups/vince-rg/providers/Microsoft.MachineLearningServices/workspaces/vince-dev"
+    
+    outputs:
+      output_dir:
+        type: uri_folder
+        mode: rw_mount
+
+    partition_keys:
+      - Store
+      - Brand
+    resources:
+      instance_count: 6
+
+    error_threshold: -1
+    mini_batch_error_threshold: 5
+    logging_level: "INFO"
+    input_data: ${{inputs.data_source}}
+    max_concurrency_per_instance: 2
+    retry_settings:
+      max_retries: 2
+      timeout: 600
+
+    task:
+      type: run_function
+      code: ../src/
+      entry_script: parallel_inference.py
+      environment:
+        image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:20240226.v1
+        conda_file: ../environment/conda.yaml
+
+      program_arguments: >-
+        --drop_cols ${{inputs.drop_cols}}
+        --date_col ${{inputs.date_col}}
+        --output_dir ${{outputs.output_dir}}
+        --tracking_uri ${{inputs.tracking_uri}}
