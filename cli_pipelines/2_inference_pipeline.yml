@@ -33,7 +33,7 @@ jobs:
         mode: direct
       drop_cols: "Advert,Store,Brand"
       date_col: "WeekStarting"
-      tracking_uri: "azureml://eastus.api.azureml.ms/mlflow/v1.0/subscriptions/6c065ea7-65cd-4a34-8e2a-3e21ad4a8e9f/resourceGroups/vince-rg/providers/Microsoft.MachineLearningServices/workspaces/vince-dev"
+      tracking_uri: ""<YOUR_WORKSPACE_TRACKING_URI>"
     
     outputs:
       output_dir:
