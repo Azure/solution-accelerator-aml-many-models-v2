@@ -4,7 +4,7 @@ display_name: Many Model Evaluation
 description: Pipeline to evaluate many models predictions vs ground truth
 experiment_name: many-model-evaluation
 settings:
-  default_compute: azureml:dev-cluster
+  default_compute: azureml:mm-cpu-cluster
 
 jobs:
   partition_job:

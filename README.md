@@ -14,7 +14,7 @@ Follow demo notebooks in order to step through the process of developing and dep
 ## Using the Azure Machine Learning CLI
 There are three ways to define and run jobs in Azure Machine Learning: The Python SDK, the Azure ML CLI and the Azure Machine Learning Studio UI. The CLI is a convenient way to manage pipeline definitions as code and run them using a simple command line interface. This makes it the ideal choice to use within your CI/CD orchestration.
 
-The [cli_pipelines](./README_2.md) folder contains the YAML definition files for the training, inference and evaluation pipelines implemented with the Python SDK in the notebooks. 
+The [cli_pipelines](./cli_pipelines) folder contains the YAML definition files for the training, inference and evaluation pipelines implemented with the Python SDK in the notebooks. 
 
 You can run any of these using the `az ml job create` command from a terminal. Example below 
 

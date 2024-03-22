@@ -5,7 +5,7 @@ description: parallel job to train many models with partition_keys on mltable in
 experiment_name: many-model-parallel-job
 
 settings:
-  default_compute: azureml:dev-cluster
+  default_compute: azureml:mm-cpu-cluster
 
 jobs:
   partition_job:
@@ -24,7 +24,7 @@ jobs:
 
   distributed_training:
     type: parallel
-    compute: azureml:dev-cluster
+    compute: azureml:mm-cpu-cluster
     
     inputs:
       data_source: 

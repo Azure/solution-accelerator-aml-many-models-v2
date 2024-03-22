@@ -6,7 +6,7 @@ experiment_name: many-model-inference-job
 
 
 settings:
-  default_compute: azureml:dev-cluster
+  default_compute: azureml:mm-cpu-cluster
 
 jobs:
   partition_job:
@@ -25,7 +25,7 @@ jobs:
 
   distributed_inference:
     type: parallel
-    compute: azureml:dev-cluster
+    compute: azureml:mm-cpu-cluster
     inputs:
       data_source: 
         path: ${{parent.jobs.partition_job.outputs.tabular_output_data}}
