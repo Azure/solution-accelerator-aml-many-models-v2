@@ -19,6 +19,7 @@ From a terminal, run the following steps:
 1. Log in with the CLI `az login`
 2. **If you don't have an existing Azure ML compute cluster:** Run section 2 of the [0_setup.ipynb](./demo_notebooks) notebook or use the `az ml compute create` CLI command, as described [here](https://learn.microsoft.com/en-us/cli/azure/ml/compute?view=azure-cli-latest#az-ml-compute-create)
 3. Configure the CLI to point to your Azure Machine Learning workspace
+4. Set mlflow tracking URI  in the [trianing](./1_training_pipeline.yml) amd [inference](./2_inference_pipeline.yml)based on your workspace
 ```
 az account set --subscription <subscription ID>
 az configure --defaults workspace=<Azure Machine Learning workspace name> group=<resource group>
