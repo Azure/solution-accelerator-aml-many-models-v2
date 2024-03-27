@@ -17,7 +17,7 @@ jobs:
         path: ../data/oj_sim_sales/test_subset_results.csv
       predictions:
         type: uri_file
-        path: azureml:oj-sim-sales-predictions@latest
+        path: ../data/oj_sim_sales/outputs/consolidated_outputs.csv
       ground_truth_column_name: "Revenue"
       predictions_column_name: "predictions"
       join_cols: "WeekStarting,Store,Brand"

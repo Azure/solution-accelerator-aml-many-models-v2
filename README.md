@@ -8,8 +8,8 @@
 ## Motivation
 The goal of of this repository is to provide a thorough example of a scaleable and repeatable framework for training, deployment, and inference of a 'Many Model' architecture using Azure Machine Learning.
 
-## Notebooks
-Follow demo notebooks in order to step through the process of developing and deploying repeatable, parallel, training and inferencing using Azure Machine Learning
+## Using the Azure Machine Learning Python SDK (v2)
+Follow the [sdk notebooks](./sdk_notebooks/) in order to step through the process of developing and deploying repeatable, parallel, training and inferencing using Azure Machine Learning
 
 ## Using the Azure Machine Learning CLI
 There are three ways to define and run jobs in Azure Machine Learning: The Python SDK, the Azure ML CLI and the Azure Machine Learning Studio UI. The CLI is a convenient way to manage pipeline definitions as code and run them using a simple command line interface. This makes it the ideal choice to use within your CI/CD orchestration.
