@@ -27,7 +27,9 @@ cd cli_pipelines
 az ml compute create -f compute.yml
 ```
 **Note:** If you already have an existing cluster you want to use to run the pipelines, modify the `compute` value in the pipeline definition YAML files in the repository
-5. Modify the (1_training_pipeline.yml)[./1_training_pipeline.yml] and (2_training_pipeline.yml)[./2_inference_pipeline.yml] with your Workspace's tracking URI
+
+5. Modify the [1_training_pipeline.yml](./1_training_pipeline.yml) and [2_training_pipeline.yml](./2_inference_pipeline.yml) with your Workspace's tracking URI
+
 6. Run the pipelines using the `az ml job create` command
 ```
 az ml job create -f 1_training_pipeline.yml
