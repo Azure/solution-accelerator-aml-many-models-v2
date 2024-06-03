@@ -1,0 +1,18 @@
+allow_multi_partitions: false
+debug_log: debug.txt
+enable_early_stopping: true
+forecast_horizon: 6
+forecast_step: 6
+label_column_name: Revenue
+max_trials: 25
+n_cross_validations: 2
+partition_column_names:
+- Store
+- Brand
+primary_metric: normalized_root_mean_squared_error
+task: forecasting
+time_column_name: WeekStarting
+time_series_id_column_names: []
+timeout_minutes: 60
+track_child_runs: false
+trial_timeout_minutes: 5
