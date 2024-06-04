@@ -16,26 +16,27 @@ The `cli_pipelines` folder contains 3 different Azure Machine Learning pipeline 
 
 1. Log in with the CLI `az login`
 2. Configure the CLI to point to your Azure Machine Learning workspace
-```
+```sh
 az account set --subscription <subscription ID>
 az configure --defaults workspace=<Azure Machine Learning workspace name> group=<resource group>
 ```
-3. Create the compute cluster needed to run the pipelines:
+3. Create the compute cluster needed to run the pipelines (__if needed__):
 Modify the [compute.yml](./compute.yml) file as needed and run the following command
-```
+```sh
 cd cli_pipelines
 az ml compute create -f compute.yml
 ```
 **Note:** If you already have an existing cluster you want to use to run the pipelines, modify the `compute` value in the pipeline definition YAML files in the repository
 
-5. Modify the [1_training_pipeline.yml](./1_training_pipeline.yml) and [2_training_pipeline.yml](./2_inference_pipeline.yml) with your Workspace's tracking URI
+4. Modify the [1_training_pipeline.yml](./1_training_pipeline.yml) and [2_training_pipeline.yml](./2_inference_pipeline.yml) with your Workspace's tracking URI
 
-6. Run the pipelines using the `az ml job create` command
+5. Run the pipelines using the `az ml job create` command
 ```
 az ml job create -f 1_training_pipeline.yml
+az ml job create -f 2_inference_pipeline.yml
 ```
 
-note that you can overwrite the default workspace by adding the `--workspace-name` flag to your CLI commands.
+**Note**: that you can overwrite the default workspace by adding the `--workspace-name` flag to your CLI commands.
 
 ## Helpful links
 
